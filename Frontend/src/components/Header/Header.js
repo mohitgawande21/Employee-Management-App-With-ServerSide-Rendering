@@ -14,7 +14,7 @@ export default function Header() {
     }
 
     return (
-            <div  className=' bg-secondary d-flex flex-wrap justify-content-end align-items-center h-50 p-2 w-100'>
+            <div  className=' bg-secondary d-flex flex-wrap justify-content-end align-items-center p-1 w-100'>
                 <h3 className='my-1 ml-3 text-white flex-grow-1 '> Manage Employees</h3>
                 <div  className=''>
                     <button onClick={() => handleDeleteEmployees()} type="submit" className="btn btn-danger my-1 rounded-0">- Delete</button>

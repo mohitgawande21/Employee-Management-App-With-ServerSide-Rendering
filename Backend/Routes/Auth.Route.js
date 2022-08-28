@@ -11,8 +11,7 @@ router.post('/register', async (req, res) => {
                 error: 'API failed'
             })
         }
-
-        let user = new User({
+        let user =  new User({
             name: req.body.name,
             email: req.body.email,
             password: hashedPass,

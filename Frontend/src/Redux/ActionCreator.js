@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
+import { ADD_EMPLOYEE, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
 import axios from 'axios'
 export const addEmployee = (inpuDateAdd) => {
     return {
@@ -55,8 +55,68 @@ export const AllcheckedCheckbox = (Allchecked) => {
         payload: Allchecked
     }
 }
-export const addEmployeeFromDatabase = (inputdata) => {
+
+export const registerUser = (inputUser) => {
+    return {
+        type: RGISTER_USER,
+        payload: inputUser
+    }
+}
+
+export const loginUser = (inputUser) => {
+    return {
+        type: LOGIN_USER,
+        payload: inputUser
+    }
+}
+
+export const addRegisterUsertoDatabase = (inputdata) => {
     return (dispatch) => {
+        axios(
+            {
+                method: 'post',
+                url: 'http://localhost:2000/user/register',
+                data: {
+                    name: inputdata.name,
+                    email: inputdata.email,
+                    password: inputdata.password,
+                }
+            }
+        );
+        dispatch(registerUser(inputdata))
+    }
+
+}
+
+export const loginUsertoDatabase = (inputdata) => {
+    return async (dispatch) => {
+        const response = await axios({
+            method: 'post',
+            url: 'http://localhost:2000/user/login',
+            data: {
+                name: inputdata.name,
+                email: inputdata.email,
+                password: inputdata.password,
+            }
+        }
+        );
+        const { token } = await response.data
+        dispatch(loginUser(inputdata))
+        localStorage.setItem('tokenlocal', token)
+        // setTimeout(()=>{
+        //     const response =  axios({
+        //         method: 'get',
+        //         url: 'http://localhost:2000/employee',
+        //     });
+        //     dispatch(loadEmployee(response.data))
+        // })
+    }
+
+}
+export const addEmployeeFromDatabase = (inputdata) => {
+
+    return (dispatch) => {
+
         axios(
             {
                 method: 'post',
@@ -67,6 +127,9 @@ export const addEmployeeFromDatabase = (inputdata) => {
                     address: inputdata.address,
                     phone: inputdata.phone,
                     Id: inputdata.id
+                },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
                 }
             }
         );
@@ -76,10 +139,14 @@ export const addEmployeeFromDatabase = (inputdata) => {
 }
 
 export const loadEmployeefromDatabase = () => {
+
     return async (dispatch) => {
         const response = await axios({
             method: 'get',
             url: 'http://localhost:2000/employee',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+            }
         });
         dispatch(loadEmployee(response.data))
     }
@@ -92,8 +159,10 @@ export const deleteEmployeefromDatabase = (Id) => {
         axios({
             method: 'delete',
             url: `http://localhost:2000/employee/${Id}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+            }
         });
-
     }
 }
 
@@ -106,6 +175,9 @@ export const deleteEmployeesfromDatabase = (Employee_List) => {
                 axios({
                     method: 'delete',
                     url: `http://localhost:2000/employee/${item._id}`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                    }
                 });
             }
             return 0
@@ -127,6 +199,9 @@ export const saveEmployeefromDatabase = (inpuDataEdit) => {
                 address: inpuDataEdit.address,
                 phone: inpuDataEdit.phone,
                 Select: inpuDataEdit.Select
+            },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
             }
         });
     }

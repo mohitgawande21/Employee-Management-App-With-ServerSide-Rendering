@@ -23,13 +23,13 @@ function EmployeeItem({ Employee }) {
 
     return (
         <>
-            <div style={bg_color} className='row'>
-                <div className='col'><Input Employee={Employee} /></div>
-                <div style={EmployeeItemStyle} className='col'> {Employee.name}</div>
-                <div style={EmployeeItemStyle} className='col'> {Employee.email}</div>
-                <div style={EmployeeItemStyle} className='col'> {Employee.address}</div>
-                <div style={EmployeeItemStyle} className='col'> {Employee.phone}</div>
-                <div className='col'>
+            <div style={bg_color} className='row  border-bottom border-top d-flex flex-wrap justify-content-end align-items-center h-50 p-2 '>
+                <div className='col d-flex justify-content-center '><Input Employee={Employee} /></div>
+                <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.name}</div>
+                <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.email}</div>
+                <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.address}</div>
+                <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.phone}</div>
+                <div className='col d-flex text-center align-items-center'>
                     <Link to={`/edit/${Employee._id}`}>
                         <button className="btn btn-outline-warning border-light mx-1" > <i className="fa-solid fa-pen" /></button>
                     </Link>

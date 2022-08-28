@@ -12,7 +12,7 @@ export default function EmployeeItem() {
     dispatch(loadEmployeefromDatabase())
   }, [])
   const Employee_List = useSelector((state) => {
-    return state.Employee_List.sort()
+    return state.Employee_List
   })
   const Page_Limit = useSelector((state) => {
     return state.Page_Limit
@@ -53,13 +53,14 @@ export default function EmployeeItem() {
   return (
     <>
       <div>
-        <div className='row p-2'>
+        
+        <div className="row bg-light d-flex flex-wrap justify-content-between align-items-center h-50 p-2 ">
           <input checked={AllCheckboxValue[ArrIndex]} type="checkbox" className='mx-3 col' onChange={handleCheckBox} />
-          <div className='Employeeitem col'> <strong>Name</strong></div>
-          <div className='Employeeitem col'> <strong>Email</strong></div>
-          <div className='Employeeitem col'> <strong>Address</strong></div>
-          <div className='Employeeitem col'> <strong>Phone</strong></div>
-          <div className='Employeeitem col'> <strong>Action</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Name</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Email</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Address</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Phone</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Action</strong></div>
         </div>
       </div>
       

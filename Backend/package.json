@@ -21,6 +21,9 @@
   "mongoose": "^6.5.0",
  
    
+  "node-sessionstorage": "^1.0.0",
+ 
+   
   "nodemon": "^2.0.19"
  
   }

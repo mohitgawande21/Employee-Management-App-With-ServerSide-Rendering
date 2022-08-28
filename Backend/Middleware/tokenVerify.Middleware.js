@@ -1,16 +1,16 @@
 const jwt = require('jsonwebtoken');
-
+const storage = require('node-sessionstorage')
 // authorization
 function verifytoken(req, res, next) {
   if(req.headers.authorization){
     var token = req.header('Authorization').split(' ')[1];
+    storage.setItem("jwt", token)
   }else{
     
     if (!token) return res.status(401).send('Access Denied');
   }
   try {
     const verified = jwt.verify(token, 'verySecretValue');
-    console.log(req.user)
     req.user = verified;
     next();
   } catch (err) {

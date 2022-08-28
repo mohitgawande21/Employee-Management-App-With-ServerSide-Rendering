@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE, NUMBER,ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
+import { ADD_EMPLOYEE, RGISTER_USER, LOGIN_USER,NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
 
 // const Employee_List_Local_Storage = localStorage.getItem("Employee_List_Local_Storage")
 // Employee_List_Local_Storage ? JSON.parse(Employee_List_Local_Storage) :
@@ -6,12 +6,22 @@ const initialState = {
     Employee_List: [],
     ArrIndex: 1,
     Page_Limit: 15,
-    AllCheckboxValue:{}
+    AllCheckboxValue: {},
+    Register_User: [],
+    Login_User:[]
 
 }
 
 export const Reducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOGIN_USER:
+            return{
+                ...state, Login_User: [...state.Login_User, action.payload]
+            }
+        case RGISTER_USER:
+            return {
+                ...state, Register_User: [...state.Register_User, action.payload]
+            }
         case LOAD_EMPLOYEE:
             return {
                 ...state, Employee_List: action.payload
@@ -54,7 +64,7 @@ export const Reducer = (state = initialState, action) => {
             }
         case ALL_CHECKBOX: {
             return {
-                ...state,AllCheckboxValue:action.payload
+                ...state, AllCheckboxValue: action.payload
             }
         }
         default:
