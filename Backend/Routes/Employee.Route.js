@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const Employees = require('../Models/Employee.Model')
-// const tokenVerifyMiddleware=require('../Middleware/tokenVerify.Middleware')
+const tokenVerifyMiddleware=require('../Middleware/tokenVerify.Middleware')
 //get request to get all employees
-router.get('/', async (req, res) => {
+router.get('/',tokenVerifyMiddleware, async (req, res) => {
     try {
         const employees = await Employees.find()
         res.json(employees)
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 
 //get request to get a employee
-router.get('/:id', async (req, res) => {
+router.get('/:id',tokenVerifyMiddleware, async (req, res) => {
     try {
         let finduserbyId = await Employees.findById(req.params.id)
         res.status(200).json(finduserbyId)
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
 })
 
 //post request to add new employee
-router.post('/', async (req, res) => {
+router.post('/',tokenVerifyMiddleware, async (req, res) => {
     const employee = {
         name: req.body.name,
         email: req.body.email,
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
 //patch request to update employee
 
-router.patch('/:id',async (req, res) => {
+router.patch('/:id',tokenVerifyMiddleware,async (req, res) => {
     const employeeupdate = {
         name: req.body.name,
         email: req.body.email,
@@ -59,7 +59,7 @@ router.patch('/:id',async (req, res) => {
 })
 
 //delete request for one employee
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', tokenVerifyMiddleware,async (req, res) => {
     
     try {
         let findemployeebyId = await Employees.findById(req.params.id)

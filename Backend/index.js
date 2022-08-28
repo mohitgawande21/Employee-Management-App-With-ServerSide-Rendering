@@ -4,6 +4,7 @@ const app= express()
 const path =require('path')
 const port=2000;
 const employeeRouter = require('./Routes/Employee.Route')
+const authRouter =require('./Routes/Auth.Route')
 const mongoose=require('mongoose')
 const db=mongoose.connection
 const url=process.env.DATABASE_URL
@@ -21,7 +22,7 @@ app.use(cors()) // Use this after the variable declaration
 app.use(express.json())
 
 app.use('/employee',employeeRouter)
-
+app.use('/user',authRouter)
 //static file rendering
 app.use(express.static(path.join(__dirname, '../Frontend/build')))
 
