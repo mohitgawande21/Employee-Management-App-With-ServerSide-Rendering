@@ -2,8 +2,8 @@
 
 #Above will add all packages and dependencies for project 
 
-#Then run nodemon index.j in /Backent Folder 
+#Then run nodemon index.js in /Backent Folder 
 
-#Above will start local server on 2000 project
+#Above will start local server on 2000 port
 
 Author: Mohit Gawande
