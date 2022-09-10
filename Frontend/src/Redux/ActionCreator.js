@@ -98,11 +98,11 @@ export const loginUsertoDatabase = (inputdata) => {
                 email: inputdata.email,
                 password: inputdata.password,
             }
-        }
-        );
+        });
         const { token } = await response.data
         dispatch(loginUser(inputdata))
         localStorage.setItem('tokenlocal', token)
+        console.log(token)
         // setTimeout(()=>{
         //     const response =  axios({
         //         method: 'get',

@@ -29,8 +29,8 @@ export default function LoginUser() {
             window.location.reload(false);
             // dispatch(loadEmployeefromDatabase())
         }, 200)
-        
         navigate('/')
+        
     }
 
     return (

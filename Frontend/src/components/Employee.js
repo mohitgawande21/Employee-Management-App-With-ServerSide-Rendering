@@ -31,21 +31,21 @@ export default function Employee() {
                     {/* <Route path="/" element={login?<div style={Overlay}> <RegisterUser /></div>: <React.Suspense fallback={
                         <Spinner />}> <LazyEmployees /> </React.Suspense>} /> */}
 
-                    <Route path='/' element={!localStorage.getItem('tokenlocal')?<Navigate  to="/user/register" /> :<React.Suspense fallback={
+                    <Route path='/' element={!localStorage.getItem('tokenlocal')?<Navigate  to="/register" /> :<React.Suspense fallback={
                         <Spinner />}> <LazyEmployees /> </React.Suspense>} />
 
-                    <Route path="/add" element={!localStorage.getItem('tokenlocal')?<Navigate  to="/user/register" /> :<React.Suspense fallback={
+                    <Route path="/add" element={!localStorage.getItem('tokenlocal')?<Navigate  to="/register" /> :<React.Suspense fallback={
                         <Spinner />}> <div style={Overlay}><LazyAddEmployee /></div> </React.Suspense>} />
 
-                    <Route path="/edit/:id" element={!localStorage.getItem('tokenlocal')?<Navigate  to="/user/register" /> :<React.Suspense fallback={
+                    <Route path="/edit/:id" element={!localStorage.getItem('tokenlocal')?<Navigate  to="/register" /> :<React.Suspense fallback={
                         <Spinner />}> <div style={Overlay}><LazyEditEmployee /></div> </React.Suspense>} />
 
                     <Route path="*" element={<React.Suspense fallback={
-                        <Spinner />}><LazyPageNotFound /></React.Suspense>} />
+                        <Spinner />}><div style={Overlay}><LazyPageNotFound /></div></React.Suspense>} />
 
-                    <Route path="/user/register" element={localStorage.getItem('tokenlocal')?<Navigate to="/"/>:<div style={Overlay}> <RegisterUser /></div>} />
+                    <Route path="/register" element={localStorage.getItem('tokenlocal')?<Navigate to="/"/>:<div style={Overlay}> <RegisterUser /></div>} />
 
-                    <Route path="/user/login" element={localStorage.getItem('tokenlocal')? <Navigate to="/"/>:<div style={Overlay}> <LoginUser /></div>} />
+                    <Route path="/login" element={localStorage.getItem('tokenlocal')? <Navigate to="/"/>:<div style={Overlay}> <LoginUser /></div>} />
                 </Routes>
                 <Footer />
             </Router>

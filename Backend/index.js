@@ -26,8 +26,8 @@ app.use('/user',authRouter)
 //static file rendering
 app.use(express.static(path.join(__dirname, '../Frontend/build')))
 
-app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/build/index.html'))
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/build','index.html'))
 })
 
 // app.listen(port,()=>{
