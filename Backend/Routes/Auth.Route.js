@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
     if (!validPassword) return res.status(400).send('Password is incorrect!');
 
     const token = jwt.sign({ name: user.name }, 'verySecretValue');
-    res.header('Authorization', token).json({message: 'User logged in Successfully',token:token});
+    res.header('Authorization', token).json({message: 'User logged in Successfully',token:token,name:user.name});
     
 });
 

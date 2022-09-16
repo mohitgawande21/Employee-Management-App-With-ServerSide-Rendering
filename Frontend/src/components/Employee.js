@@ -25,14 +25,14 @@ export default function Employee() {
     return (
         <>
             <Router>
-                <Header />
-                <EmployeeItemDefault />
+               
+            
                 <Routes>
                     {/* <Route path="/" element={login?<div style={Overlay}> <RegisterUser /></div>: <React.Suspense fallback={
                         <Spinner />}> <LazyEmployees /> </React.Suspense>} /> */}
 
                     <Route path='/' element={!localStorage.getItem('tokenlocal')?<Navigate  to="/register" /> :<React.Suspense fallback={
-                        <Spinner />}> <LazyEmployees /> </React.Suspense>} />
+                        <Spinner />}><Header /><EmployeeItemDefault />  <LazyEmployees /><Footer /> </React.Suspense>} />
 
                     <Route path="/add" element={!localStorage.getItem('tokenlocal')?<Navigate  to="/register" /> :<React.Suspense fallback={
                         <Spinner />}> <div style={Overlay}><LazyAddEmployee /></div> </React.Suspense>} />
@@ -47,7 +47,7 @@ export default function Employee() {
 
                     <Route path="/login" element={localStorage.getItem('tokenlocal')? <Navigate to="/"/>:<div style={Overlay}> <LoginUser /></div>} />
                 </Routes>
-                <Footer />
+                
             </Router>
         </>
     )
