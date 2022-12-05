@@ -8,7 +8,6 @@ function Input({ Employee }) {
     // const [checked, setChecked] = useState(false)
 
     const handleCheckBox = (e) => {
-        console.log(e.target.checked)
         // setChecked(e.target.checked)
         if (e.target.checked) {
             dispatch(saveEmployeefromDatabase({ ...Employee, Select: true }))

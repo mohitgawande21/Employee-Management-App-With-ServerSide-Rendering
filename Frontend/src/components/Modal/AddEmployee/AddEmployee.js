@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addEmployeeFromDatabase ,loadEmployeefromDatabase} from "../../../Redux/ActionCreator"
-import { Link, useNavigate } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 const {v4 : uuidv4} = require('uuid')
 export default function AddEmployee() {
     const Id = uuidv4()
@@ -9,7 +9,12 @@ export default function AddEmployee() {
         return state.Employee_List
     })
 
-    const [inpuDataAdd, setinpuDataEditAdd] = useState({})
+    const [inpuDataAdd, setinpuDataEditAdd] = useState({
+        name:'',
+        email:'',
+        address:'',
+        phone:''
+    })
 
     const inpuDataEditAdd = (e) => {
         e.preventDefault()
@@ -19,15 +24,16 @@ export default function AddEmployee() {
     }
 
     const dispatch = useDispatch()
-
-    const AddEmployee = () => {
+    const navigate = useNavigate()
+    const AddEmployee = (e) => {
+        e.preventDefault()
         dispatch(addEmployeeFromDatabase({...inpuDataAdd,id:Id,}, Employee_List))
         dispatch(loadEmployeefromDatabase())
+        navigate('/')
     }
-const navigate=useNavigate()
     return (
         <div className=' d-inline-flex justify-content-center align-item-center '>
-            <form  className='bg-white p-4 mx-3 ' >
+            <form  className='bg-white p-4 mx-3 ' onSubmit={AddEmployee}>
                 <div className='d-flex justify-content-center flex-column align-item-center'>
                     <h5 className=''>Add Employee Details</h5>
                     <label>Name</label>
@@ -41,11 +47,9 @@ const navigate=useNavigate()
                 </div>
                 <div className='d-flex  justify-content-center mx-3 p-2' >
                     <Link to="/">
-                        <button className="btn  mx-3 bg-white rounded-0" >Cancle</button>
+                        <div  className="btn  mx-3 bg-white rounded-0" >Cancle</div>
                     </Link>
-                    <Link to="/">
-                        <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" onClick={() => AddEmployee()} >Add</button>
-                    </Link>
+                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0"  >Add</button>
                 </div>
             </form >
         </div>

@@ -1,5 +1,6 @@
 import React, {useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ReactDOM from 'react-dom'
 import { Overlay } from './OverlayStyle'
 import Spinner from "./Loading/Spinner"
 import RegisterUser from './RegisterUser/RegisterUser'
@@ -17,25 +18,26 @@ export default function Employee() {
     const logedIn = useSelector((state) => {
         return state.logedIn
       })
+      const token=localStorage.getItem('tokenlocal') ? true :false
     return (
         <>
             <Router>
                 <Routes>
-                    <Route path='/' element={!logedIn?<Navigate  to="/register" /> :<React.Suspense fallback={
-                        <Spinner />}> <DashBorad/> </React.Suspense>} />
+                    <Route path='/' element={(logedIn||token)?<React.Suspense fallback={
+                        <Spinner />}> <DashBorad/> </React.Suspense> : <Navigate  to="/register" /> } />
 
-                    <Route path="/add" element={!logedIn?<Navigate  to="/register" /> :<React.Suspense fallback={
-                        <Spinner />}> <div style={Overlay}><LazyAddEmployee /></div> </React.Suspense>} />
+                    <Route path="/add" element={(logedIn||token)?<React.Suspense fallback={
+                        <Spinner />}><>{ReactDOM.createPortal(<div style={Overlay}><LazyAddEmployee/></div>,document.getElementById('register-root'))} </></React.Suspense>:<Navigate  to="/register" /> } />
 
-                    <Route path="/edit/:id" element={!logedIn?<Navigate  to="/register" /> :<React.Suspense fallback={
-                        <Spinner />}> <div style={Overlay}><LazyEditEmployee /></div> </React.Suspense>} />
+                    <Route path="/edit/:id" element={(logedIn||token)?<React.Suspense fallback={
+                        <Spinner />}><>{ReactDOM.createPortal(<div style={Overlay}><LazyEditEmployee/></div>,document.getElementById('register-root'))} </></React.Suspense>:<Navigate  to="/register" /> } />
 
                     <Route path="*" element={<React.Suspense fallback={
                         <Spinner />}><div style={Overlay}><LazyPageNotFound /></div></React.Suspense>} />
 
-                    <Route path="/register" element={logedIn?<Navigate to="/"/>:<div style={Overlay}> <RegisterUser /></div>} />
+                    <Route path="/register" element={(logedIn||token)?<Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><RegisterUser/></div>,document.getElementById('register-root'))} </>} />
 
-                    <Route path="/login" element={logedIn? <Navigate to="/"/>:<div style={Overlay}> <LoginUser /></div>} />
+                    <Route path="/login" element={(logedIn||token)? <Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><LoginUser/></div>,document.getElementById('register-root'))} </>} />
                 </Routes>
                 
             </Router>

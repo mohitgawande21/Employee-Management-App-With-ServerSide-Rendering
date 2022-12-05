@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useMatch, useParams } from 'react-router-dom'
+import { Link, useMatch, useParams,useNavigate } from 'react-router-dom'
 import { saveEmployeefromDatabase ,loadEmployeefromDatabase} from '../../../Redux/ActionCreator'
 import PageNotFound from "../../PageNotFound/PageNotFound"
 export default function EditEmployee() {
@@ -22,7 +22,12 @@ export default function EditEmployee() {
         dispatch(loadEmployeefromDatabase())
       }, [])
     
-    const [inpuDataEdit, setInpuDataEdit] = useState({idChecked:false})
+    const [inpuDataEdit, setInpuDataEdit] = useState({
+        name:'',
+        email:'',
+        address:'',
+        phone:'',
+        idChecked:false})
     // useLayoutEffect(() => {
     //     Employee_List.map((item) => {
     //         if (item.Id === params.id) {
@@ -46,14 +51,16 @@ export default function EditEmployee() {
             ...inpuDataEdit, [e.target.name]: e.target.value
         })
     }
-
-    const saveEmployeeChanges = (inpuDataEdit) => {
+    const navigate = useNavigate()
+    const saveEmployeeChanges = (e) => {
+        e.preventDefault()
         dispatch(saveEmployeefromDatabase(inpuDataEdit))
+        navigate('/')
     }
     
         return (
             <div className='flex-wrap d-inline-flex justify-content-center align-item-center  '>
-                <form className='bg-white  w-100 p-4 ' >
+                <form className='bg-white  w-100 p-4 '  onSubmit={saveEmployeeChanges}>
                     <div className=' d-flex justify-content-center flex-column align-item-center'>
                         <h5 >Edit Employee Details</h5>
                         <label>Name</label>
@@ -67,11 +74,9 @@ export default function EditEmployee() {
                     </div>
                     <div className='d-flex  justify-content-center mx-2 my-2' >
                         <Link to="/">
-                            <button className="btn  mx-2 bg-white rounded-0" >Cancle</button>
+                            <div className="btn  mx-2 bg-white rounded-0" >Cancle</div>
                         </Link>
-                        <Link to="/">
-                            <button type="submit" onClick={() => saveEmployeeChanges(inpuDataEdit)} className="btn btn-primary  bg-success mx-2 rounded-0" >Save changes</button>
-                        </Link>
+                        <button type="submit"  className="btn btn-primary  bg-success mx-2 rounded-0" >Save changes</button>
                     </div>
                 </form >
             </div>

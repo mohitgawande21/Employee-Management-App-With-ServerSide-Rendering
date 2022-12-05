@@ -16,17 +16,19 @@ export default function Header() {
     const searchWithInputName = (e) => {
         e.preventDefault()
         setSearchNme(e.target.value)
-        console.log(searchName, searchName.length)
         dispatch(SearchName(e.target.value.trim()))
     }
-    const clearInput = () => {
+    const clearInput = (e) => {
         setSearchNme('')
+        dispatch(SearchName(e.target.value.trim()))
     }
     const navigate = useNavigate()
     const handleLogoutEmployee = (e) => {
         e.preventDefault()
         localStorage.setItem('tokenlocal', '')
-        dispatch((login(false)))
+        setTimeout(() => {
+            dispatch((login(false)))
+        },200)
         navigate('/register')
     }
     return (

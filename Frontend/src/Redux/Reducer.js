@@ -5,7 +5,7 @@ import {SEARCH_NAME, ADD_EMPLOYEE,LOGIN, RGISTER_USER, LOGIN_USER,NUMBER, ALL_CH
 const initialState = {
     Employee_List: [],
     ArrIndex: 1,
-    Page_Limit: 15,
+    Page_Limit: 10,
     AllCheckboxValue: {},
     Register_User: [],
     Login_User:[],

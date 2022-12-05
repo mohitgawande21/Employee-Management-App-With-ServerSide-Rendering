@@ -117,7 +117,6 @@ export const loginUsertoDatabase = (inputdata) => {
         dispatch(loginUser(inputdata))
         localStorage.setItem('tokenlocal', token)
         localStorage.setItem('name', name)
-        console.log(name)
         // setTimeout(()=>{
         //     const response =  axios({
         //         method: 'get',
@@ -168,7 +167,6 @@ export const loadEmployeefromDatabase = () => {
 }
 
 export const deleteEmployeefromDatabase = (Id) => {
-    console.log(Id)
     return (dispatch) => {
         dispatch(deleteEmployee(Id))
         axios({
@@ -182,7 +180,6 @@ export const deleteEmployeefromDatabase = (Id) => {
 }
 
 export const deleteEmployeesfromDatabase = (Employee_List) => {
-    console.log("checkItem", Employee_List)
     return (dispatch) => {
         dispatch(deleteEmployees(Employee_List))
         Employee_List.map((item) => {
