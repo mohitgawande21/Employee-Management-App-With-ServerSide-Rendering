@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUsertoDatabase, loadEmployeefromDatabase, loginUser } from "../../Redux/ActionCreator"
+import { loginUsertoDatabase, loadEmployeefromDatabase, loginUser,login } from "../../Redux/ActionCreator"
 import { Link, useNavigate } from "react-router-dom"
 const { v4: uuidv4 } = require('uuid')
 export default function LoginUser() {
@@ -9,7 +9,11 @@ export default function LoginUser() {
         return state.Login_User
     })
 
-    const [loginUserData, setloginUserData] = useState({})
+    const [loginUserData, setloginUserData] = useState({
+        name:'',
+        email:'',
+        password:''
+    })
 
     const loginUserForm = (e) => {
         e.preventDefault()
@@ -21,21 +25,23 @@ export default function LoginUser() {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
-
-    const LoginUser = () => {
+    const LoginUser = (e) => {
+        e.preventDefault()
         dispatch(loginUsertoDatabase({ ...loginUserData, id: uuidv4() }))
         // dispatch(loginUser({...loginUserData,id:uuidv4()}))
         setTimeout(() => {
-            window.location.reload(false);
-            // dispatch(loadEmployeefromDatabase())
+            if(localStorage.getItem('tokenlocal')){
+                dispatch((login(true)))
+            }else{
+                dispatch((login(false)))
+            }
         }, 200)
         navigate('/')
-        
     }
 
     return (
         <div className=' d-inline-flex justify-content-center align-item-center '>
-            <form className='bg-white p-4 mx-3 ' >
+            <form className='bg-white p-4 mx-3 ' onSubmit={LoginUser}>
                 <div className='d-flex justify-content-center flex-column align-item-center'>
                     <h5 className=''>Login User</h5>
                     <label>Name</label>
@@ -47,7 +53,7 @@ export default function LoginUser() {
 
                 </div>
                 <div className='d-flex  justify-content-center mx-3 p-2' >
-                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" onClick={() => LoginUser()} >Login</button>
+                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0"  >Login</button>
                 </div>
             </form >
         </div>

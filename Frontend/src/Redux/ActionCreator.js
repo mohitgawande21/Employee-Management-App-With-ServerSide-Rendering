@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE,SEARCH_NAME, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
+import { ADD_EMPLOYEE,SEARCH_NAME,LOGIN, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
 import axios from 'axios'
 export const addEmployee = (inpuDateAdd) => {
     return {
@@ -76,6 +76,14 @@ export const SearchName = (inputName) => {
         payload: inputName
     }
 }
+
+export const login = (login) => {
+    return {
+        type: LOGIN,
+        payload: login
+    }
+}
+
 export const addRegisterUsertoDatabase = (inputdata) => {
     return (dispatch) => {
         axios(

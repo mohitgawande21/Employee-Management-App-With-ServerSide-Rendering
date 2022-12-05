@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addRegisterUsertoDatabase, registerUser } from "../../Redux/ActionCreator"
 import { Link, useNavigate } from "react-router-dom"
@@ -9,7 +9,11 @@ export default function RigisterUser() {
         return state.Register_User
     })
 
-    const [addUserData, setaddUserData] = useState({})
+    const [addUserData, setaddUserData] = useState({
+        name:'',
+        email:'',
+        password:''
+    })
 
     const addUser = (e) => {
         e.preventDefault()
@@ -21,14 +25,20 @@ export default function RigisterUser() {
 
     const dispatch = useDispatch()
 
-    const AddUser = () => {
+    const AddUser = (e) => {
+        e.preventDefault()
         dispatch(addRegisterUsertoDatabase({ ...addUserData, id: uuidv4() }))
         // dispatch(registerUser({...addUserData,id:uuidv4()}))
         navigate('/login')
     }
+
+    const AlreadyUser = (e) =>{
+        e.preventDefault()
+        navigate('/login')
+    }
     return (
         <div className=' d-inline-flex justify-content-center align-item-center '>
-            <form className='bg-white p-4 mx-3 ' >
+            <div className='bg-white p-4 mx-3 ' >
                 <div className='d-flex justify-content-center flex-column align-item-center'>
                     <h5 className=''>Rgister User</h5>
                     <label>Name</label>
@@ -37,16 +47,14 @@ export default function RigisterUser() {
                     <input value={addUserData.email} type="text" onChange={(e) => addUser(e)} name="email" placeholder="Email" />
                     <label>Password</label>
                     <input value={addUserData.password} type="text" className="" onChange={(e) => addUser(e)} name="password" placeholder="Password" />
-
                 </div>
                 <div className='d-flex  justify-content-center mx-3 p-2' >
-                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" onClick={() => AddUser()} >Register</button>
+                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" onClick={AddUser} >Register</button>
                     <div className='my-1'>OR</div>
-                    <Link to="/login">
-                        <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" >Login</button>
-                    </Link>
+                    <button type="submit" className=" mx-3 btn btn-primary mx-2 bg-success rounded-0" onClick={AlreadyUser}>Already have Account</button>
                 </div>
-            </form >
+            </div >
+
         </div>
     )
 }

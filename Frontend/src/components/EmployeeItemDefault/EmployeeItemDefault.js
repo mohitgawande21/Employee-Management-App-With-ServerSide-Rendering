@@ -9,7 +9,9 @@ export default function EmployeeItem() {
   })
   useEffect(() => {
     // localStorage.setItem("Employee_List_Local_Storage", JSON.stringify(Employee_List))
-    dispatch(loadEmployeefromDatabase())
+    setTimeout(()=>{
+      dispatch(loadEmployeefromDatabase())
+    },200)
   }, [])
   const Employee_List = useSelector((state) => {
     return state.Employee_List
