@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { deleteEmployeesfromDatabase, SearchName, login } from '../../Redux/ActionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-export default function Header() {
+export default function Header({setCredentialValid}) {
 
     const dispatch = useDispatch()
     const Employee_List = useSelector((state) => {
@@ -26,6 +26,7 @@ export default function Header() {
     const handleLogoutEmployee = (e) => {
         e.preventDefault()
         localStorage.setItem('tokenlocal', '')
+        setCredentialValid(true)
         setTimeout(() => {
             dispatch((login(false)))
         },200)

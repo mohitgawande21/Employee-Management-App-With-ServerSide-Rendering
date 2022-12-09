@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginUsertoDatabase, loadEmployeefromDatabase, loginUser,login } from "../../Redux/ActionCreator"
 import { Link, useNavigate } from "react-router-dom"
 const { v4: uuidv4 } = require('uuid')
-export default function LoginUser() {
+export default function LoginUser({setCredentialValid,credentialValid}) {
 
     const Login_User = useSelector((state) => {
         return state.Login_User
@@ -34,6 +34,7 @@ export default function LoginUser() {
                 dispatch((login(true)))
             }else{
                 dispatch((login(false)))
+                setCredentialValid(false)
             }
         }, 200)
         navigate('/')

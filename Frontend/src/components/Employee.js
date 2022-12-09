@@ -19,12 +19,14 @@ export default function Employee() {
         return state.logedIn
       })
       const token=localStorage.getItem('tokenlocal') ? true :false
+      const [credentialValid,setCredentialValid]=useState(true)
+
     return (
         <>
             <Router>
                 <Routes>
                     <Route path='/' element={(logedIn||token)?<React.Suspense fallback={
-                        <Spinner />}> <DashBorad/> </React.Suspense> : <Navigate  to="/register" /> } />
+                        <Spinner />}> <DashBorad setCredentialValid={setCredentialValid}/> </React.Suspense> : <Navigate  to="/register" /> } />
 
                     <Route path="/add" element={(logedIn||token)?<React.Suspense fallback={
                         <Spinner />}><>{ReactDOM.createPortal(<div style={Overlay}><LazyAddEmployee/></div>,document.getElementById('register-root'))} </></React.Suspense>:<Navigate  to="/register" /> } />
@@ -35,9 +37,9 @@ export default function Employee() {
                     <Route path="*" element={<React.Suspense fallback={
                         <Spinner />}><div style={Overlay}><LazyPageNotFound /></div></React.Suspense>} />
 
-                    <Route path="/register" element={(logedIn||token)?<Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><RegisterUser/></div>,document.getElementById('register-root'))} </>} />
+                    <Route path="/register" element={(logedIn||token)?<Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><RegisterUser setCredentialValid={setCredentialValid}  credentialValid={credentialValid}/></div>,document.getElementById('register-root'))} </>} />
 
-                    <Route path="/login" element={(logedIn||token)? <Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><LoginUser/></div>,document.getElementById('register-root'))} </>} />
+                    <Route path="/login" element={(logedIn||token)? <Navigate to="/"/>:<>{ReactDOM.createPortal(<div style={Overlay}><LoginUser setCredentialValid={setCredentialValid} credentialValid={credentialValid}/></div>,document.getElementById('register-root'))} </>} />
                 </Routes>
                 
             </Router>
