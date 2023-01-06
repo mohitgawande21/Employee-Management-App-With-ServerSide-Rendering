@@ -4,7 +4,6 @@ import { deleteEmployeefromDatabase } from '../../Redux/ActionCreator'
 import { Link } from 'react-router-dom'
 import Input from './Input'
 import axios from 'axios'
-import EditEmployee from '../Modal/EditEmployee/EditEmployee'
 function EmployeeItem({ Employee }) {
 
     const dispatch = useDispatch()
@@ -31,7 +30,6 @@ function EmployeeItem({ Employee }) {
 
     const selectFile = (e) => {
         setfile(e.target.files[0])
-        console.log(e.target.files[0])
     }
 
     const handleUploadClick = () => {
@@ -59,14 +57,17 @@ function EmployeeItem({ Employee }) {
                 <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.email}</div>
                 <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.address}</div>
                 <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.phone}</div>
+                <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'>
+                    <a href="#" className="text-center" >{Employee.file?.name}</a>
+                </div>
                 <div className='col d-flex justify-content-center'>
                     <Link to={`/edit/${Employee._id}`}>
                         <button className="btn btn-outline-warning border-light mx-1" > <i className="fa-solid fa-pen" /></button>
                     </Link>
                     <button className="btn btn-outline-danger border-light" onClick={() => handleDeleteEmployee(Employee._id)}><i className="fa-solid fa-trash"></i></button>
-                    <label for="upload-photo" className="btn btn-outline-secondary border-light mb-0">
+                    <label for={`${Employee._id}`} className="btn btn-outline-secondary border-light mb-0">
                         <i className="fa-solid fa-paperclip"></i>
-                        <input onChange={selectFile} type="file" style={inputCSS} name="photo" id="upload-photo" />
+                        <input onChange={selectFile} type="file" style={inputCSS} name="photo" id={`${Employee._id}`} />
                     </label>
                     <button onClick={handleUploadClick} className="btn btn-outline-light btn-primary" ><i className="fa fa-upload" ></i></button>
                 </div>

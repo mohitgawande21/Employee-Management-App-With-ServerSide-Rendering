@@ -60,6 +60,7 @@ export default function EmployeeItem() {
           <div className="col d-flex justify-content-center align-items-center"> <strong>Email</strong></div>
           <div className="col d-flex justify-content-center align-items-center"> <strong>Address</strong></div>
           <div className="col d-flex justify-content-center align-items-center"> <strong>Phone</strong></div>
+          <div className="col d-flex justify-content-center align-items-center"> <strong>Resume</strong></div>
           <div className="col d-flex justify-content-center align-items-center"> <strong>Action</strong></div>
         </div>
       </div>
