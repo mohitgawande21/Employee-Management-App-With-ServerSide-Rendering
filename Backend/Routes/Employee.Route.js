@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const Employees = require('../Models/Employee.Model')
-const tokenVerifyMiddleware=require('../Middleware/tokenVerify.Middleware')
+const tokenVerifyMiddleware = require('../Middleware/tokenVerify.Middleware')
 //get request to get all employees
-router.get('/',tokenVerifyMiddleware, async (req, res) => {
+router.get('/', tokenVerifyMiddleware, async (req, res) => {
     try {
         const employees = await Employees.find()
         res.json(employees)
@@ -14,17 +14,17 @@ router.get('/',tokenVerifyMiddleware, async (req, res) => {
 
 
 //get request to get a employee
-router.get('/:id',tokenVerifyMiddleware, async (req, res) => {
+router.get('/:id', tokenVerifyMiddleware, async (req, res) => {
     try {
         let finduserbyId = await Employees.findById(req.params.id)
         res.status(200).json(finduserbyId)
     } catch (err) {
-        res.status(500).json(err.message )
+        res.status(500).json(err.message)
     }
 })
 
 //post request to add new employee
-router.post('/',tokenVerifyMiddleware, async (req, res) => {
+router.post('/', tokenVerifyMiddleware, async (req, res) => {
     const employee = {
         name: req.body.name,
         email: req.body.email,
@@ -42,15 +42,16 @@ router.post('/',tokenVerifyMiddleware, async (req, res) => {
 
 //patch request to update employee
 
-router.patch('/:id',tokenVerifyMiddleware,async (req, res) => {
+router.patch('/:id', tokenVerifyMiddleware, async (req, res) => {
     const employeeupdate = {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        address: req.body.address
+        address: req.body.address,
+        file: req.body.file
     }
     try {
-        await Employees.updateOne({_id:req.params.id},{$set:employeeupdate},{upsert: true})
+        await Employees.updateOne({ _id: req.params.id }, { $set: employeeupdate }, { upsert: true })
         res.status(200).send(`Empolyee with id :${req.params.id} is updated`)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -59,8 +60,8 @@ router.patch('/:id',tokenVerifyMiddleware,async (req, res) => {
 })
 
 //delete request for one employee
-router.delete('/:id', tokenVerifyMiddleware,async (req, res) => {
-    
+router.delete('/:id', tokenVerifyMiddleware, async (req, res) => {
+
     try {
         let findemployeebyId = await Employees.findById(req.params.id)
         await findemployeebyId.remove()

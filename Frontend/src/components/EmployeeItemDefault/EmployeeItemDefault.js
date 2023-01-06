@@ -54,7 +54,7 @@ export default function EmployeeItem() {
     <>
       <div>
         
-        <div className="row bg-light d-flex flex-wrap justify-content-between align-items-center h-50 p-2 ">
+        <div className="bg-light d-flex flex-wrap justify-content-between align-items-center h-50 p-2 ">
           <input checked={AllCheckboxValue[ArrIndex]} type="checkbox" className='mx-3 col' onChange={handleCheckBox} />
           <div className="col d-flex justify-content-center align-items-center"> <strong>Name</strong></div>
           <div className="col d-flex justify-content-center align-items-center"> <strong>Email</strong></div>

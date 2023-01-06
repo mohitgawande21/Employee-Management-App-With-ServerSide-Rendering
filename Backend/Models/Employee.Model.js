@@ -1,23 +1,26 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
-const Schema= new mongoose.Schema({
-    name:{
-        type:String,
+const Schema = new mongoose.Schema({
+    name: {
+        type: String,
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
     },
-    phone:{
-        type:Number,
+    phone: {
+        type: Number,
     },
-    address:{
-        type:String,
+    address: {
+        type: String,
     },
-    date:{
-        type:Date,
-        default:Date.now
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    file: {
+        type:Object
     }
 })
 
-Employee=mongoose.model('employees',Schema)
-module.exports=Employee
+Employee = mongoose.model('employees', Schema)
+module.exports = Employee
