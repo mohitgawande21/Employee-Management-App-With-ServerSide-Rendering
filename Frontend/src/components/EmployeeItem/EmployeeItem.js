@@ -27,16 +27,15 @@ function EmployeeItem({ Employee }) {
         zIndex: '-1',
     }
     const [file, setfile] = useState()
-
     const selectFile = (e) => {
         setfile(e.target.files[0])
     }
-
     const handleUploadClick = () => {
 
         if (!file) {
             return;
         }
+
         axios({
             method: 'patch',
             url: `http://localhost:2000/employee/${Employee._id}`,
@@ -45,6 +44,10 @@ function EmployeeItem({ Employee }) {
             },
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+            },
+            onUploadProgress: function (progressEvent) {
+                var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                alert(`Uploaded ${percentCompleted + '%'}`)
             }
         });
     }
@@ -65,7 +68,7 @@ function EmployeeItem({ Employee }) {
                         <button className="btn btn-outline-warning border-light mx-1" > <i className="fa-solid fa-pen" /></button>
                     </Link>
                     <button className="btn btn-outline-danger border-light" onClick={() => handleDeleteEmployee(Employee._id)}><i className="fa-solid fa-trash"></i></button>
-                    <label for={`${Employee._id}`} className="btn btn-outline-secondary border-light mb-0">
+                    <label htmlFor={`${Employee._id}`} className="btn btn-outline-secondary border-light mb-0">
                         <i className="fa-solid fa-paperclip"></i>
                         <input onChange={selectFile} type="file" style={inputCSS} name="photo" id={`${Employee._id}`} />
                     </label>
