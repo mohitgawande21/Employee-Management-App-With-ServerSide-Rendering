@@ -1,4 +1,4 @@
-import {SEARCH_NAME, ADD_EMPLOYEE,LOGIN, RGISTER_USER, LOGIN_USER,NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
+import { SEARCH_NAME, ADD_EMPLOYEE, LOGIN, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
 
 // const Employee_List_Local_Storage = localStorage.getItem("Employee_List_Local_Storage")
 // Employee_List_Local_Storage ? JSON.parse(Employee_List_Local_Storage) :
@@ -8,10 +8,10 @@ const initialState = {
     Page_Limit: 10,
     AllCheckboxValue: {},
     Register_User: [],
-    Login_User:[],
-    Search_Name:'',
-    Employee_List_Stored:[],
-    logedIn:false
+    Login_User: [],
+    Search_Name: '',
+    Employee_List_Stored: [],
+    logedIn: false
 
 }
 
@@ -19,10 +19,10 @@ export const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN:
             return {
-                ...state,logedIn:action.payload
+                ...state, logedIn: action.payload
             }
         case LOGIN_USER:
-            return{
+            return {
                 ...state, Login_User: [...state.Login_User, action.payload]
             }
         case RGISTER_USER:
@@ -31,7 +31,7 @@ export const Reducer = (state = initialState, action) => {
             }
         case LOAD_EMPLOYEE:
             return {
-                ...state, Employee_List: action.payload,Employee_List_Stored:action.payload
+                ...state, Employee_List: action.payload, Employee_List_Stored: action.payload
             }
         case SEARCH_NAME:
             const SearchEmployee = state.Employee_List_Stored.filter((Employee) => {
@@ -42,7 +42,7 @@ export const Reducer = (state = initialState, action) => {
             }
         case ADD_EMPLOYEE:
             return {
-                ...state, Employee_List: [...state.Employee_List, action.payload]
+                ...state, Employee_List: [...state.Employee_List, action.payload], Employee_List_Stored: [...state.Employee_List, action.payload]
             }
 
         case DELETE_EMPLOYEE:
@@ -50,7 +50,7 @@ export const Reducer = (state = initialState, action) => {
                 return Employee._id !== action.payload
             })
             return {
-                ...state, Employee_List: remainingEmployee
+                ...state, Employee_List: remainingEmployee, Employee_List_Stored: remainingEmployee
             }
 
         case SAVE_EMPLOYEE:
@@ -61,14 +61,14 @@ export const Reducer = (state = initialState, action) => {
                 return Employee
             })
             return {
-                ...state, Employee_List: SavedEmployee
+                ...state, Employee_List: SavedEmployee, Employee_List_Stored: SavedEmployee
             }
         case DELETE_EMPLOYEES:
             var deletedEmployees = state.Employee_List.filter((Employee) => {
                 return Employee.Select !== true
             })
             return {
-                ...state, Employee_List: deletedEmployees, Checked_Items: [], Checked_Clear_Item: []
+                ...state, Employee_List: deletedEmployees, Checked_Items: [], Checked_Clear_Item: [], Employee_List_Stored: deletedEmployees
             }
 
 

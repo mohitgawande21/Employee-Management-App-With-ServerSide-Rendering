@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE,SEARCH_NAME,LOGIN, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
+import { ADD_EMPLOYEE, SEARCH_NAME, LOGIN, RGISTER_USER, LOGIN_USER, NUMBER, ALL_CHECKBOX, LOAD_EMPLOYEE, DELETE_EMPLOYEE, EDIT_EMPLOYEE, SAVE_EMPLOYEE, DELETE_EMPLOYEES } from "./ActionTypes"
 import axios from 'axios'
 export const addEmployee = (inpuDateAdd) => {
     return {
@@ -113,7 +113,7 @@ export const loginUsertoDatabase = (inputdata) => {
                 password: inputdata.password,
             }
         });
-        const { token,name } = await response.data
+        const { token, name } = await response.data
         dispatch(loginUser(inputdata))
         localStorage.setItem('tokenlocal', token)
         localStorage.setItem('name', name)
@@ -155,14 +155,23 @@ export const addEmployeeFromDatabase = (inputdata) => {
 export const loadEmployeefromDatabase = () => {
 
     return async (dispatch) => {
-        const response = await axios({
-            method: 'get',
-            url: 'http://localhost:2000/employee',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+        try {
+            const response = await axios({
+                method: 'get',
+                url: 'http://localhost:2000/employee',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                }
+            });
+            dispatch(loadEmployee(response.data))
+        }
+        catch (error) {
+            if (window.navigator.onLine && error.response && error.code === "ERR_NETWORK") {
+                alert('Could Not Load The Data due to Server Error')
+            } else {
+                alert('No internet connection');
             }
-        });
-        dispatch(loadEmployee(response.data))
+        }
     }
 }
 

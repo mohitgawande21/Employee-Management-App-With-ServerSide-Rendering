@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { deleteEmployeesfromDatabase, SearchName, login } from '../../Redux/ActionCreator'
+import { deleteEmployeesfromDatabase, SearchName, login, AllcheckedCheckbox } from '../../Redux/ActionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 export default function Header({ setCredentialValid }) {
@@ -8,8 +8,14 @@ export default function Header({ setCredentialValid }) {
     const Employee_List = useSelector((state) => {
         return state.Employee_List
     })
-
+    const ArrIndex = useSelector((state) => {
+        return state.ArrIndex
+      })
+      const AllCheckboxValue = useSelector((state) => {
+        return state.AllCheckboxValue
+      })
     const handleDeleteEmployees = () => {
+        dispatch(AllcheckedCheckbox({ ...AllCheckboxValue, [`${ArrIndex}`]: false }))
         dispatch(deleteEmployeesfromDatabase(Employee_List))
     }
     const [searchName, setSearchNme] = useState('')
