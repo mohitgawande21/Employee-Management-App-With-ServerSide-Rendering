@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import EmployeeItem from '../EmployeeItem/EmployeeItem'
 import { useSelector } from 'react-redux'
+const LazyEmployeeItem = React.lazy(() => import('../EmployeeItem/EmployeeItem'))
 export default function Employees() {
 
   const Employee_List = useSelector((state) => {
@@ -28,7 +28,7 @@ export default function Employees() {
  
     <>
       {Employee_List.sort((x, y) => x._id - y._id).slice(firstIndex, lastindex + 1).map((Employee, index) => {
-        return <EmployeeItem key={Employee._id} Employee={Employee} />
+        return <LazyEmployeeItem key={Employee._id} Employee={Employee} />
       })}
     </>
   )

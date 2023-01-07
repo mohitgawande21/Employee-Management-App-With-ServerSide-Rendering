@@ -1,15 +1,15 @@
 import React from 'react'
-import Header from './Header/Header'
-import Footer from "./Footer/Footer"
-import EmployeeItemDefault from "./EmployeeItemDefault/EmployeeItemDefault"
+const LazyHeader = React.lazy(() => import("./Header/Header"))
+const LazyEmployeeItemDefault = React.lazy(() => import("./EmployeeItemDefault/EmployeeItemDefault"))
 const LazyEmployees = React.lazy(() => import("./Employees/Employees"))
+const LazyFooter = React.lazy(() => import("./Footer/Footer"))
 export default function DashBorad({setCredentialValid}) {
   return (
     <>
-      <Header setCredentialValid={setCredentialValid}/>
-      <EmployeeItemDefault />  
+      <LazyHeader setCredentialValid={setCredentialValid}/>
+      <LazyEmployeeItemDefault />  
       <LazyEmployees />
-      <Footer />
+      <LazyFooter />
     </>
   )
 }
