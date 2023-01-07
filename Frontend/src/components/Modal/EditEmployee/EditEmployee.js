@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useMatch, useParams,useNavigate } from 'react-router-dom'
-import { saveEmployeefromDatabase ,loadEmployeefromDatabase} from '../../../Redux/ActionCreator'
-import PageNotFound from "../../PageNotFound/PageNotFound"
+import { saveEmployeefromDatabase} from '../../../Redux/ActionCreator'
+
 export default function EditEmployee() {
 
     const params = useParams()
@@ -17,10 +17,6 @@ export default function EditEmployee() {
     const Employee_List = useSelector((state) => {
         return state.Employee_List
     })
-    useEffect(() => {
-        // localStorage.setItem("Employee_List_Local_Storage", JSON.stringify(Employee_List))
-        dispatch(loadEmployeefromDatabase())
-      }, [])
     
     const [inpuDataEdit, setInpuDataEdit] = useState({
         name:'',

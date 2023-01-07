@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addEmployeeFromDatabase ,loadEmployeefromDatabase} from "../../../Redux/ActionCreator"
+import { addEmployeeFromDatabase } from "../../../Redux/ActionCreator"
 import { Link,useNavigate } from "react-router-dom"
 const {v4 : uuidv4} = require('uuid')
 export default function AddEmployee() {
@@ -28,7 +28,6 @@ export default function AddEmployee() {
     const AddEmployee = (e) => {
         e.preventDefault()
         dispatch(addEmployeeFromDatabase({...inpuDataAdd,id:Id,}, Employee_List))
-        dispatch(loadEmployeefromDatabase())
         navigate('/')
     }
     return (
