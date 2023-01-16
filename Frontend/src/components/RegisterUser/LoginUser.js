@@ -30,7 +30,7 @@ export default function LoginUser({setCredentialValid,credentialValid}) {
         dispatch(loginUsertoDatabase({ ...loginUserData, id: uuidv4() }))
         // dispatch(loginUser({...loginUserData,id:uuidv4()}))
         setTimeout(() => {
-            if(localStorage.getItem('tokenlocal')){
+            if(sessionStorage.getItem('tokenlocal')){
                 dispatch((login(true)))
             }else{
                 dispatch((login(false)))

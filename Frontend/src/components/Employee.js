@@ -18,7 +18,7 @@ export default function Employee() {
     const logedIn = useSelector((state) => {
         return state.logedIn
       })
-      const token=localStorage.getItem('tokenlocal') ? true :false
+      const token=sessionStorage.getItem('tokenlocal') ? true :false
       const [credentialValid,setCredentialValid]=useState(true)
 
     return (

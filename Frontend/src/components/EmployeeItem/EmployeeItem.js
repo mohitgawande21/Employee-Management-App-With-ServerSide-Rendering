@@ -43,7 +43,7 @@ function EmployeeItem({ Employee }) {
                 file: { name: file.name, size: file.size, type: file.type, lastModified: file.lastModified, lastModifiedDate: file.lastModifiedDate },
             },
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
             },
             onUploadProgress: function (progressEvent) {
                 var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)

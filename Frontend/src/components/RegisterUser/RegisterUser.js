@@ -48,7 +48,7 @@ export default function RigisterUser({ credentialValid, setCredentialValid }) {
     const logedIn = useSelector((state) => {
         return state.logedIn
     })
-    const token = localStorage.getItem('tokenlocal') ? true : false
+    const token =sessionStorage.getItem('tokenlocal') ? true : false
     return (
         <div className=' d-inline-flex justify-content-center align-item-center '>
             <div className='bg-white p-4 mx-3 ' >

@@ -115,8 +115,9 @@ export const loginUsertoDatabase = (inputdata) => {
         });
         const { token, name } = await response.data
         dispatch(loginUser(inputdata))
-        localStorage.setItem('tokenlocal', token)
-        localStorage.setItem('name', name)
+        sessionStorage.setItem('tokenlocal', token)
+        // sessionStorage.setItem('tokenlocal', token)
+        sessionStorage.setItem('LoginTime', new Date().getTime())
         // setTimeout(()=>{
         //     const response =  axios({
         //         method: 'get',
@@ -143,7 +144,7 @@ export const addEmployeeFromDatabase = (inputdata) => {
                     Id: inputdata.id
                 },
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                    Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
                 }
             }
         );
@@ -160,16 +161,17 @@ export const loadEmployeefromDatabase = () => {
                 method: 'get',
                 url: 'http://localhost:2000/employee',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                    Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
                 }
             });
             dispatch(loadEmployee(response.data))
         }
         catch (error) {
+            console.log(window.navigator.onLine, error.response , error.code)
             if (window.navigator.onLine && error.response && error.code === "ERR_NETWORK") {
-                alert('Could Not Load The Data due to Server Error')
+                // alert('Could Not Load The Data due to Server Error')
             } else {
-                alert('No internet connection');
+                // alert('No internet connection or Invalid Credentials');
             }
         }
     }
@@ -182,7 +184,7 @@ export const deleteEmployeefromDatabase = (Id) => {
             method: 'delete',
             url: `http://localhost:2000/employee/${Id}`,
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
             }
         });
     }
@@ -197,7 +199,7 @@ export const deleteEmployeesfromDatabase = (Employee_List) => {
                     method: 'delete',
                     url: `http://localhost:2000/employee/${item._id}`,
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                        Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
                     }
                 });
             }
@@ -222,7 +224,7 @@ export const saveEmployeefromDatabase = (inpuDataEdit) => {
                 Select: inpuDataEdit.Select
             },
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('tokenlocal')}`
+                Authorization: `Bearer ${sessionStorage.getItem('tokenlocal')}`
             }
         });
     }
