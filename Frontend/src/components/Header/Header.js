@@ -46,7 +46,7 @@ export default function Header({ setCredentialValid }) {
     useEffect(() => {
             let miliseconds = sTime.getTime() - sessionStorage.getItem('LoginTime')
             let minutes = Math.round(miliseconds / 60000);
-            setleftT(5-minutes)
+            setleftT(60-minutes)
         if (minutes >= 60) {
             sessionStorage.setItem('tokenlocal', '')
             window.location.reload(false);
