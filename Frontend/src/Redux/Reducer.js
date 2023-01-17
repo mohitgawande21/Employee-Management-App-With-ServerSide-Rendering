@@ -11,7 +11,7 @@ const initialState = {
     Login_User: [],
     Search_Name: '',
     Employee_List_Stored: [],
-    logedIn: false
+    logedIn: null
 
 }
 
