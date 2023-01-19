@@ -54,7 +54,8 @@ function EmployeeItem({ Employee }) {
 
     return (
         <>
-            <div style={bg_color} className='border-bottom border-top d-flex flex-wrap justify-content-end align-items-center h-50 p-2 '>
+            <div style={bg_color} className='border-bottom border-top d-flex flex-wrap justify-content-end align-items-center h-50 p-2 ' >
+                <span style={{cursor:'pointer'}}><i className="fa-solid fa-up-down-left-right"></i></span>
                 <div className='col d-flex justify-content-center '><Input Employee={Employee} /></div>
                 <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.name}</div>
                 <div style={EmployeeItemStyle} className='col d-flex justify-content-center align-items-center'> {Employee.email}</div>
